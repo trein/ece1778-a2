@@ -15,7 +15,7 @@
         android:orientation="vertical" >
         
         <TextView
-            android:id="@+id/label_add"
+            android:id="@+id/label_header"
             style="@style/header_style"
             android:text="@string/add_entry_label" />
 

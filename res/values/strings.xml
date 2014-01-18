@@ -4,6 +4,7 @@
     <string name="app_name">Assignment 2</string>
     <string name="action_reset">Reset</string>
 
+    
     <string name="enter_names_label">Enter Names</string>
     <string name="add_entry_label">Add New Entries</string>
     <string name="name_label">Name</string>
@@ -27,11 +28,18 @@
     <string name="invalid_file_name_message">Invalid file name.</string>
     
     <string name="view_label">View</string>
+    <string name="view_entry_list_label">View Entries List</string>
+    <string name="person_detail_pattern">Age: %1$s Favorite Food: %2$s</string>
+    <string name="entry_list_not_loaded_message">Impossible to load current entry list.</string>
+    
+    
     <string name="load_label">Load</string>
     <string name="exit_label">Exit</string>
     
+    
     <string name="welcome_message">Please, choose an option below.</string>
 
+    
     <string-array name="array_food_types">
         <item>Veggie Food</item>
         <item>Junk Food</item>

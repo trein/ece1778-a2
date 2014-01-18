@@ -1,7 +1,9 @@
-package com.ackbox.a2;
+package com.ackbox.a2.fragment;
 
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
+
+import com.ackbox.a2.R;
 
 public class BaseFragment extends Fragment {
 

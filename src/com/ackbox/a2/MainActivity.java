@@ -1,5 +1,7 @@
 package com.ackbox.a2;
 
+import com.ackbox.a2.fragment.MenuFragment;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;

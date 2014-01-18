@@ -1,5 +1,9 @@
-package com.ackbox.a2;
+package com.ackbox.a2.model;
 
+import android.content.Context;
+
+import com.ackbox.a2.R;
+import com.ackbox.a2.Utils;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
@@ -9,7 +13,7 @@ import com.google.common.base.Strings;
  * @author trein
  * 
  */
-public class Person {
+public class Person implements Displayable {
 
     private final String name;
     private Integer age;
@@ -68,6 +72,16 @@ public class Person {
 
     public boolean isValid() {
         return !Strings.isNullOrEmpty(this.name) && Utils.isValidAge(this.age) && !Strings.isNullOrEmpty(this.food);
+    }
+
+    @Override
+    public String getTitle(Context context) {
+        return this.name;
+    }
+
+    @Override
+    public String getDetail(Context context) {
+        return String.format(context.getResources().getString(R.string.person_detail_pattern), this.age, this.food);
     }
 
 }

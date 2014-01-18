@@ -1,4 +1,4 @@
-package com.ackbox.a2;
+package com.ackbox.a2.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,13 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.ackbox.a2.R;
+import com.ackbox.a2.model.CatalogException;
+import com.ackbox.a2.model.CatalogService;
+
 public class StoreFragment extends BaseFragment {
 
     private static final String TAG = StoreFragment.class.getSimpleName();
 
-    private EditText nameEditText;
-
-    private final CatalogService service = CatalogService.INSTANCE;
+    private EditText mNameEditText;
+    private final CatalogService mService = CatalogService.INSTANCE;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class StoreFragment extends BaseFragment {
     }
 
     private void setupViews() {
-        this.nameEditText = (EditText) getActivity().findViewById(R.id.text_file_name);
+        this.mNameEditText = (EditText) getActivity().findViewById(R.id.text_file_name);
 
         Button storeButton = (Button) getActivity().findViewById(R.id.button_store);
         storeButton.setOnClickListener(new View.OnClickListener() {
@@ -47,15 +50,14 @@ public class StoreFragment extends BaseFragment {
                 switchToPreviousFragment();
             }
         });
-
     }
 
     private void storeEntryList() {
-        String filename = this.nameEditText.getText().toString();
+        String filename = this.mNameEditText.getText().toString();
 
         try {
             Log.d(TAG, String.format("Preparing to save entry list into [{0}].", filename));
-            this.service.saveEntryList(getActivity(), filename);
+            this.mService.saveEntryList(getActivity(), filename);
 
             showNotification(R.string.entry_list_stored_message);
         } catch (CatalogException e) {

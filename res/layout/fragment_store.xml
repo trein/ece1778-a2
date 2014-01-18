@@ -15,7 +15,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/label_store"
+            android:id="@+id/label_header"
             style="@style/header_style"
             android:text="@string/store_entry_list_label" />
 

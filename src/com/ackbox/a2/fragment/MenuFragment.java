@@ -1,10 +1,12 @@
-package com.ackbox.a2;
+package com.ackbox.a2.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.ackbox.a2.R;
 
 public class MenuFragment extends BaseFragment {
 
@@ -21,7 +23,7 @@ public class MenuFragment extends BaseFragment {
 
     private void setupViews() {
         setupEnterNamesButton();
-        // setupViewButton();
+        setupViewButton();
         setupStoreButton();
         // setupLoadButton();
         setupExitButton();
@@ -38,17 +40,6 @@ public class MenuFragment extends BaseFragment {
         });
     }
 
-    // private void setupLoadButton() {
-    // Button button = (Button) getActivity().findViewById(R.id.button_load);
-    // button.setOnClickListener(new View.OnClickListener() {
-    //
-    // @Override
-    // public void onClick(View v) {
-    // switchFragment(new LoadFragment());
-    // }
-    // });
-    // }
-    //
     private void setupStoreButton() {
         Button button = (Button) getActivity().findViewById(R.id.button_store);
         button.setOnClickListener(new View.OnClickListener() {
@@ -60,14 +51,24 @@ public class MenuFragment extends BaseFragment {
         });
     }
 
-    //
-    // private void setupViewButton() {
-    // Button button = (Button) getActivity().findViewById(R.id.button_view);
+    private void setupViewButton() {
+        Button button = (Button) getActivity().findViewById(R.id.button_view);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                switchFragment(new ViewFragment());
+            }
+        });
+    }
+
+    // private void setupLoadButton() {
+    // Button button = (Button) getActivity().findViewById(R.id.button_load);
     // button.setOnClickListener(new View.OnClickListener() {
     //
     // @Override
     // public void onClick(View v) {
-    // switchFragment(new ViewFragment());
+    // switchFragment(new LoadFragment());
     // }
     // });
     // }

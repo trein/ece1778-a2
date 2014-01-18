@@ -1,4 +1,4 @@
-package com.ackbox.a2;
+package com.ackbox.a2.model;
 
 public class CatalogException extends Exception {
 

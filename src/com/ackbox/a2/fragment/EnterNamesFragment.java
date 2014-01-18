@@ -1,4 +1,4 @@
-package com.ackbox.a2;
+package com.ackbox.a2.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,15 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.ackbox.a2.R;
+import com.ackbox.a2.Utils;
+import com.ackbox.a2.model.CatalogException;
+import com.ackbox.a2.model.CatalogService;
+import com.ackbox.a2.model.Person;
+
 public class EnterNamesFragment extends BaseFragment {
 
     private static final String TAG = EnterNamesFragment.class.getSimpleName();
 
-    private EditText nameEditText;
-    private EditText ageEditText;
-    private Spinner foodsSpinner;
-
-    private final CatalogService service = CatalogService.INSTANCE;
+    private EditText mNameEditText;
+    private EditText mAgeEditText;
+    private Spinner mFoodSpinner;
+    private final CatalogService mService = CatalogService.INSTANCE;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,9 +36,9 @@ public class EnterNamesFragment extends BaseFragment {
     }
 
     private void setupViews() {
-        this.nameEditText = (EditText) getActivity().findViewById(R.id.text_name);
-        this.ageEditText = (EditText) getActivity().findViewById(R.id.text_age);
-        this.foodsSpinner = (Spinner) getActivity().findViewById(R.id.choice_food_type);
+        this.mNameEditText = (EditText) getActivity().findViewById(R.id.text_name);
+        this.mAgeEditText = (EditText) getActivity().findViewById(R.id.text_age);
+        this.mFoodSpinner = (Spinner) getActivity().findViewById(R.id.choice_food_type);
 
         Button addButton = (Button) getActivity().findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +64,7 @@ public class EnterNamesFragment extends BaseFragment {
             Person person = getPerson();
 
             Log.d(TAG, String.format("Preparing to save entry {0}.", person));
-            this.service.addPerson(getActivity(), person);
+            this.mService.addPerson(getActivity(), person);
 
             showNotification(R.string.entry_added_message);
             cleanUpFields();
@@ -70,17 +75,17 @@ public class EnterNamesFragment extends BaseFragment {
     }
 
     private Person getPerson() {
-        String name = this.nameEditText.getText().toString();
-        String ageText = this.ageEditText.getText().toString();
-        String food = (String) this.foodsSpinner.getSelectedItem();
+        String name = this.mNameEditText.getText().toString();
+        String ageText = this.mAgeEditText.getText().toString();
+        String food = (String) this.mFoodSpinner.getSelectedItem();
         Integer age = (Utils.isNumeric(ageText)) ? Integer.valueOf(ageText) : 0;
 
         return Person.withName(name).andAge(age).andFood(food);
     }
 
     private void cleanUpFields() {
-        this.nameEditText.setText("");
-        this.ageEditText.setText("");
-        this.foodsSpinner.setSelection(0);
+        this.mNameEditText.setText("");
+        this.mAgeEditText.setText("");
+        this.mFoodSpinner.setSelection(0);
     }
 }
