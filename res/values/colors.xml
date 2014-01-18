@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="header">#FF4A6781</color>
+    <color name="font_side_header">#888888</color>
+    <color name="font_side_menu">#e3e2e2</color>
+    <color name="backgorund_side_list">#FF303030</color>
+    <color name="side_separator">#2e2e2e</color>
+    <color name="theme_blue_color">#0096f0</color>
+</resources>
