@@ -1,14 +1,21 @@
 package com.ackbox.a2.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ackbox.a2.R;
+import com.ackbox.a2.model.CatalogService;
 
 public class MenuFragment extends BaseFragment {
+
+    private final CatalogService mService = CatalogService.INSTANCE;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -22,11 +29,18 @@ public class MenuFragment extends BaseFragment {
     }
 
     private void setupViews() {
+        setupHeader();
         setupEnterNamesButton();
         setupViewButton();
         setupStoreButton();
-        // setupLoadButton();
+        setupLoadButton();
         setupExitButton();
+    }
+
+    private void setupHeader() {
+        TextView header = (TextView) getActivity().findViewById(R.id.welcome);
+        header.setText(String.format(getResources().getString(R.string.welcome_message),
+                this.mService.currentCatalogName()));
     }
 
     private void setupEnterNamesButton() {
@@ -62,17 +76,16 @@ public class MenuFragment extends BaseFragment {
         });
     }
 
-    // private void setupLoadButton() {
-    // Button button = (Button) getActivity().findViewById(R.id.button_load);
-    // button.setOnClickListener(new View.OnClickListener() {
-    //
-    // @Override
-    // public void onClick(View v) {
-    // switchFragment(new LoadFragment());
-    // }
-    // });
-    // }
-    //
+    private void setupLoadButton() {
+        Button button = (Button) getActivity().findViewById(R.id.button_load);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                switchFragment(new LoadFragment());
+            }
+        });
+    }
 
     private void setupExitButton() {
         Button button = (Button) getActivity().findViewById(R.id.button_exit);
@@ -80,7 +93,32 @@ public class MenuFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                if (!MenuFragment.this.mService.hasUnsavedChanges()) {
+                    getActivity().finish();
+                } else {
+                    new AlertDialog.Builder(getActivity()).setMessage(R.string.unsaved_changes_message)
+                            .setCancelable(false).setPositiveButton(R.string.ok_label, exitListener())
+                            .setNegativeButton(R.string.cancel_label, emptyListener()).create().show();
+                }
+            }
+
+            private OnClickListener emptyListener() {
+                return new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                };
+            }
+
+            private OnClickListener exitListener() {
+                return new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        getActivity().finish();
+                    }
+                };
             }
         });
 

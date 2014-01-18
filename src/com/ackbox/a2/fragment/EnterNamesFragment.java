@@ -10,10 +10,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.ackbox.a2.R;
-import com.ackbox.a2.Utils;
 import com.ackbox.a2.model.CatalogException;
 import com.ackbox.a2.model.CatalogService;
 import com.ackbox.a2.model.Person;
+import com.ackbox.a2.model.Utils;
 
 public class EnterNamesFragment extends BaseFragment {
 
@@ -61,7 +61,7 @@ public class EnterNamesFragment extends BaseFragment {
 
     private void addEntry() {
         try {
-            Person person = getPerson();
+            Person person = createPerson();
 
             Log.d(TAG, String.format("Preparing to save entry {0}.", person));
             this.mService.addPerson(getActivity(), person);
@@ -70,11 +70,12 @@ public class EnterNamesFragment extends BaseFragment {
             cleanUpFields();
         } catch (CatalogException e) {
             Log.e(TAG, "Entry not saved.", e);
-            showNotification(R.string.entry_not_added_message);
+            String pattern = getResources().getString(R.string.entry_not_added_message_pattern);
+            showNotification(String.format(pattern, e.getMessage()));
         }
     }
 
-    private Person getPerson() {
+    private Person createPerson() {
         String name = this.mNameEditText.getText().toString();
         String ageText = this.mAgeEditText.getText().toString();
         String food = (String) this.mFoodSpinner.getSelectedItem();

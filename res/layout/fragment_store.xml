@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/label_header"
             style="@style/header_style"
-            android:text="@string/store_entry_list_label" />
+            android:text="@string/store_catalog_label" />
 
         <TextView
             android:id="@+id/label_filename"

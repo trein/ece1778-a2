@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 import com.ackbox.a2.R;
 import com.ackbox.a2.adapter.TitleDetailAdapter;
-import com.ackbox.a2.model.CatalogException;
 import com.ackbox.a2.model.CatalogService;
 import com.ackbox.a2.model.Displayable;
 
@@ -20,7 +19,7 @@ public class ViewFragment extends BaseFragment {
 
     private static final String TAG = ViewFragment.class.getSimpleName();
 
-    private final CatalogService service = CatalogService.INSTANCE;
+    private final CatalogService mService = CatalogService.INSTANCE;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,17 +46,12 @@ public class ViewFragment extends BaseFragment {
     }
 
     private void loadCurrentEntryList() {
-        try {
-            Log.d(TAG, "Preparing to load current entry list.");
-            List<Displayable> list = this.service.getCurrentEntryList(getActivity());
+        Log.d(TAG, "Preparing to load current entry list.");
+        List<Displayable> list = this.mService.getCurrentCatalogPersons();
 
-            ListView listView = (ListView) getActivity().findViewById(R.id.list);
-            TitleDetailAdapter adapter = new TitleDetailAdapter(getActivity(), list);
-            listView.setAdapter(adapter);
-        } catch (CatalogException e) {
-            Log.e(TAG, "Entry list not loaded.", e);
-            showNotification(R.string.entry_list_not_loaded_message);
-        }
+        ListView listView = (ListView) getActivity().findViewById(R.id.list);
+        TitleDetailAdapter adapter = new TitleDetailAdapter(getActivity(), list);
+        listView.setAdapter(adapter);
     }
 
 }

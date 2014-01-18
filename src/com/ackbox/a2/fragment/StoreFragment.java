@@ -57,12 +57,13 @@ public class StoreFragment extends BaseFragment {
 
         try {
             Log.d(TAG, String.format("Preparing to save entry list into [{0}].", filename));
-            this.mService.saveEntryList(getActivity(), filename);
-
-            showNotification(R.string.entry_list_stored_message);
+            this.mService.saveCurrentCatalog(getActivity(), filename);
+            switchToPreviousFragment();
+            showNotification(R.string.catalog_stored_message);
         } catch (CatalogException e) {
             Log.e(TAG, "Entry list not stored.", e);
-            showNotification(R.string.entry_list_not_stored_message);
+            String pattern = getResources().getString(R.string.catalog_not_stored_message_pattern);
+            showNotification(String.format(pattern, e.getMessage()));
         }
     }
 }

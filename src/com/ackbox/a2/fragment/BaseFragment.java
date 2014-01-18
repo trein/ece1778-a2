@@ -17,6 +17,10 @@ public class BaseFragment extends Fragment {
     }
 
     protected void showNotification(int stringId) {
-        Toast.makeText(getActivity(), getResources().getString(stringId), Toast.LENGTH_SHORT).show();
+        showNotification(getResources().getString(stringId));
+    }
+
+    protected void showNotification(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

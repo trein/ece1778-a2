@@ -1,12 +1,14 @@
 package com.ackbox.a2.model;
 
-import java.util.Arrays;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
 
 import com.ackbox.a2.R;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 
 /**
  * Service responsible for handling save/load of entries. It is a thread-safe
@@ -18,34 +20,67 @@ import com.google.common.base.Strings;
 public enum CatalogService {
     INSTANCE;
 
+    private PersonCatalog loadedCatalog;
+
     private CatalogService() {
+        this.loadedCatalog = new PersonCatalog();
+    }
+
+    public List<Displayable> getCurrentCatalogPersons() {
+        return this.loadedCatalog.getPersons();
     }
 
     public void addPerson(Context context, Person person) throws CatalogException {
         if (!person.isValid()) {
             throw new CatalogException(context.getString(R.string.invalid_person_message));
         }
+        this.loadedCatalog.addPerson(person);
     }
 
-    public void saveEntryList(Context context, String filename) throws CatalogException {
-        if (Strings.isNullOrEmpty(filename)) {
+    public void saveCurrentCatalog(Context context, String fileName) throws CatalogException {
+        if (Strings.isNullOrEmpty(fileName)) {
             throw new CatalogException(context.getString(R.string.invalid_file_name_message));
+        }
+        try {
+            this.loadedCatalog.setFileName(fileName);
+            Utils.writeToFile(context, fileName, this.loadedCatalog.toJSON());
+        } catch (IOException e) {
+            new CatalogException(context.getResources().getString(R.string.error_writing_file), e);
         }
     }
 
-    public List<Displayable> getCurrentEntryList(Context context) throws CatalogException {
-        List<Displayable> persons = Arrays.<Displayable> asList(
-                Person.withName("John Doe").andAge(36).andFood("Chinese Food"), Person.withName("John Doe").andAge(36)
-                        .andFood("Chinese Food"), Person.withName("John Doe").andAge(36).andFood("Chinese Food"),
-                Person.withName("John Doe").andAge(36).andFood("Chinese Food"), Person.withName("John Doe").andAge(36)
-                        .andFood("Chinese Food"), Person.withName("John Doe").andAge(36).andFood("Chinese Food"),
-                Person.withName("John Doe").andAge(36).andFood("Chinese Food"), Person.withName("John Doe").andAge(36)
-                        .andFood("Chinese Food"), Person.withName("Karen Smith").andAge(26).andFood("Tai Food"), Person
-                        .withName("Peeta Preat").andAge(31).andFood("Veggie"),
-                Person.withName("Carmen Thied").andAge(16).andFood("Chinese Food"));
+    public void loadCurrentCatalog(Context context, String fileName) throws CatalogException {
+        if (Strings.isNullOrEmpty(fileName)) {
+            throw new CatalogException(context.getString(R.string.invalid_file_name_message));
+        }
 
-        // throw new
-        // CatalogException(context.getString(R.string.invalid_file_name_message));
-        return persons;
+        try {
+            this.loadedCatalog = PersonCatalog.fromJSON(Utils.readFromFile(context, fileName));
+        } catch (IOException e) {
+            new CatalogException(context.getResources().getString(R.string.error_reading_file_message), e);
+        }
+    }
+
+    public List<Displayable> getStoredCatalogFiles(Context context) throws CatalogException {
+        File filesDir = context.getFilesDir();
+        List<Displayable> containers = Lists.newArrayList();
+
+        for (String fileName : filesDir.list()) {
+            try {
+                containers.add(PersonCatalog.fromJSON(Utils.readFromFile(context, fileName)));
+            } catch (IOException e) {
+                new CatalogException(context.getResources().getString(R.string.error_reading_file_message), e);
+            }
+        }
+        return containers;
+    }
+
+    public String currentCatalogName() {
+        return this.loadedCatalog.getFileName();
+    }
+
+    public boolean hasUnsavedChanges() {
+        // TODO Auto-generated method stub
+        return true;
     }
 }

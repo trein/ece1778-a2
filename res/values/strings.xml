@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">Assignment 2</string>
-    <string name="action_reset">Reset</string>
+    
+
+    <string name="ok_label">OK</string>
+    <string name="cancel_label">Cancel</string>
 
     
     <string name="enter_names_label">Enter Names</string>
@@ -15,29 +18,37 @@
     <string name="add_label">Add</string>
     <string name="done_label">Done</string>
     <string name="entry_added_message">Entry successfully added.</string>
-    <string name="entry_not_added_message">Impossible to add entry. Please, check the input data and try again.</string>
+    <string name="entry_not_added_message_pattern">Impossible to add entry: %1$s</string>
     <string name="invalid_person_message">Invalid person to be saved.</string>
     
     
     <string name="store_label">Store</string>
-    <string name="store_entry_list_label">Store Entry List</string>
+    <string name="store_catalog_label">Store Catalog</string>
     <string name="file_name_label">File Name</string>
     <string name="file_name_label_hint">Input desired file name</string>
-    <string name="entry_list_stored_message">Entry list successfully stored.</string>
-    <string name="entry_list_not_stored_message">Impossible to store entry list. Please, check the file name and try again.</string>
+    <string name="catalog_stored_message">Catalog successfully stored.</string>
+    <string name="catalog_not_stored_message_pattern">Impossible to store catalog: %1$s</string>
     <string name="invalid_file_name_message">Invalid file name.</string>
+    <string name="error_writing_file">Some errors were found while writing file.</string>
     
     <string name="view_label">View</string>
     <string name="view_entry_list_label">View Entries List</string>
     <string name="person_detail_pattern">Age: %1$s Favorite Food: %2$s</string>
-    <string name="entry_list_not_loaded_message">Impossible to load current entry list.</string>
+    <string name="catalog_not_loaded_message">Impossible to load current catalog.</string>
     
     
     <string name="load_label">Load</string>
+    <string name="load_catalog_label">Load Catalog List</string>
+    <string name="catalog_title_pattern">Catalog File Name: %1$s</string>
+    <string name="catalog_detail_pattern">Date: %1$s \t Stored Entries: %2$s</string>
+    <string name="stored_catalogs_loaded_message_pattern">Catalog %1$s successfully loaded.</string>
+    <string name="stored_catalogs_not_loaded_message_pattern">Impossible to load stored catalogs file: %1$s</string>
+    <string name="error_reading_file_message">Some errors were found while reading file.</string>
+    
+    
     <string name="exit_label">Exit</string>
-    
-    
-    <string name="welcome_message">Please, choose an option below.</string>
+    <string name="unsaved_changes_message">There are unsaved changes. Are you sure you want to exit?</string>
+    <string name="welcome_message">File Name Loaded: %1$s</string>
 
     
     <string-array name="array_food_types">

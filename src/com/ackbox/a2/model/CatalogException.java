@@ -8,4 +8,7 @@ public class CatalogException extends Exception {
         super(message);
     }
 
+    public CatalogException(String message, Throwable e) {
+        super(message, e);
+    }
 }
