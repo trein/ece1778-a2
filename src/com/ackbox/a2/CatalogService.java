@@ -1,5 +1,7 @@
 package com.ackbox.a2;
 
+import android.content.Context;
+
 import com.google.common.base.Strings;
 
 /**
@@ -13,20 +15,17 @@ public enum CatalogService {
     INSTANCE;
 
     private CatalogService() {
-
     }
 
-    public void addPerson(Person person) throws CatalogException {
+    public void addPerson(Context context, Person person) throws CatalogException {
         if (!person.isValid()) {
-            throw new CatalogException("Invalid person to be saved");
+            throw new CatalogException(context.getString(R.string.invalid_person_message));
         }
-
     }
 
-    public void saveEntryList(String filename) throws CatalogException {
+    public void saveEntryList(Context context, String filename) throws CatalogException {
         if (Strings.isNullOrEmpty(filename)) {
-            throw new CatalogException("Invalid file name");
+            throw new CatalogException(context.getString(R.string.invalid_file_name_message));
         }
     }
-
 }

@@ -59,7 +59,7 @@ public class EnterNamesFragment extends BaseFragment {
             Person person = getPerson();
 
             Log.d(TAG, String.format("Preparing to save entry {0}.", person));
-            this.service.addPerson(person);
+            this.service.addPerson(getActivity(), person);
 
             showNotification(R.string.entry_added_message);
             cleanUpFields();

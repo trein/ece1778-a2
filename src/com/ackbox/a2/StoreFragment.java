@@ -37,7 +37,6 @@ public class StoreFragment extends BaseFragment {
             public void onClick(View v) {
                 storeEntryList();
             }
-
         });
 
         Button doneButton = (Button) getActivity().findViewById(R.id.button_done);
@@ -56,7 +55,7 @@ public class StoreFragment extends BaseFragment {
 
         try {
             Log.d(TAG, String.format("Preparing to save entry list into [{0}].", filename));
-            this.service.saveEntryList(filename);
+            this.service.saveEntryList(getActivity(), filename);
 
             showNotification(R.string.entry_list_stored_message);
         } catch (CatalogException e) {
