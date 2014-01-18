@@ -13,58 +13,27 @@
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="vertical" >
-        
-        <TextView
-            android:id="@+id/label_add"
-            style="@style/header_style"
-            android:text="@string/add_entry_label" />
 
         <TextView
-            android:id="@+id/label_name"
+            android:id="@+id/label_store"
+            style="@style/header_style"
+            android:text="@string/store_entry_list_label" />
+
+        <TextView
+            android:id="@+id/label_filename"
             style="@style/label_style"
-            android:text="@string/name_label" />
+            android:text="@string/file_name_label" />
 
         <include layout="@layout/fragment_item_list_separator" />
 
         <EditText
-            android:id="@+id/text_name"
+            android:id="@+id/text_file_name"
             style="@style/edit_text_style"
-            android:hint="@string/name_label_hint"
-            android:inputType="textPersonName" >
+            android:hint="@string/file_name_label_hint"
+            android:inputType="text" >
 
             <requestFocus />
         </EditText>
-
-        <include layout="@layout/fragment_item_list_separator" />
-
-        <TextView
-            android:id="@+id/label_age"
-            style="@style/label_style"
-            android:text="@string/age_label" />
-
-        <include layout="@layout/fragment_item_list_separator" />
-
-        <EditText
-            android:id="@+id/text_age"
-            style="@style/edit_text_style"
-            android:hint="@string/age_label_hint"
-            android:inputType="number" >
-        </EditText>
-
-        <include layout="@layout/fragment_item_list_separator" />
-
-        <TextView
-            android:id="@+id/label_foods"
-            style="@style/label_style"
-            android:text="@string/foods_label" />
-
-        <include layout="@layout/fragment_item_list_separator" />
-
-        <Spinner
-            android:id="@+id/choice_food_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/array_food_types" />
     </LinearLayout>
 
     <include layout="@layout/fragment_item_list_separator" />
@@ -77,13 +46,13 @@
         android:paddingTop="20dp" >
 
         <Button
-            android:id="@+id/button_add"
+            android:id="@+id/button_store"
             style="@style/button_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="@string/add_label" />
+            android:text="@string/store_label" />
 
         <Button
             android:id="@+id/button_done"

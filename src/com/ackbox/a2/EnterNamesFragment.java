@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class EnterNamesFragment extends BaseFragment {
 
@@ -68,10 +67,6 @@ public class EnterNamesFragment extends BaseFragment {
             Log.e(TAG, "Entry not saved.", e);
             showNotification(R.string.entry_not_added_message);
         }
-    }
-
-    private void showNotification(int stringId) {
-        Toast.makeText(getActivity(), getResources().getString(stringId), Toast.LENGTH_SHORT).show();
     }
 
     private Person getPerson() {

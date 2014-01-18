@@ -5,23 +5,30 @@
     <string name="action_reset">Reset</string>
 
     <string name="enter_names_label">Enter Names</string>
+    <string name="add_entry_label">Add New Entries</string>
     <string name="name_label">Name</string>
     <string name="name_label_hint">Input person\'s name</string>
     <string name="age_label">Age</string>
     <string name="age_label_hint">Input person\'s age</string>
-    <string name="foods_label">Foods</string>
+    <string name="foods_label">Favorite Food</string>
     <string name="add_label">Add</string>
     <string name="done_label">Done</string>
     
     
-    <string name="view_label">View</string>
     <string name="store_label">Store</string>
+    <string name="store_entry_list_label">Store Entry List</string>
+    <string name="file_name_label">File Name</string>
+    <string name="file_name_label_hint">Input desired file name</string>
+    
+    <string name="view_label">View</string>
     <string name="load_label">Load</string>
     <string name="exit_label">Exit</string>
     
-    <string name="welcome_message">Please, choose an option below</string>
-    <string name="entry_added_message">Entry successfully added</string>
+    <string name="welcome_message">Please, choose an option below.</string>
+    <string name="entry_added_message">Entry successfully added.</string>
     <string name="entry_not_added_message">Impossible to add entry. Please, check the input data and try again.</string>
+    <string name="entry_list_stored_message">Entry list successfully stored.</string>
+    <string name="entry_list_not_stored_message">Impossible to store entry list. Please, check the file name and try again.</string>
 
     <string-array name="array_food_types">
         <item>Veggie Food</item>

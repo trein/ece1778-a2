@@ -1,6 +1,7 @@
 package com.ackbox.a2;
 
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 public class BaseFragment extends Fragment {
 
@@ -11,5 +12,9 @@ public class BaseFragment extends Fragment {
 
     protected void switchToPreviousFragment() {
         getFragmentManager().popBackStack();
+    }
+
+    protected void showNotification(int stringId) {
+        Toast.makeText(getActivity(), getResources().getString(stringId), Toast.LENGTH_SHORT).show();
     }
 }

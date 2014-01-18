@@ -17,16 +17,39 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="header_style">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/theme_blue_color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/default_list_item_height</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
     <style name="label_style">
         <item name="android:ellipsize">marquee</item>
         <item name="android:fadingEdge">horizontal</item>
         <item name="android:singleLine">true</item>
-        <item name="android:text">@string/welcome_message</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:textColor">#FF999999</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/default_list_item_height</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="edit_text_style">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">#FF999999</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">@dimen/default_list_item_height</item>
         <item name="android:gravity">center_vertical</item>

@@ -22,7 +22,7 @@ public class MenuFragment extends BaseFragment {
     private void setupViews() {
         setupEnterNamesButton();
         // setupViewButton();
-        // setupStoreButton();
+        setupStoreButton();
         // setupLoadButton();
         setupExitButton();
     }
@@ -49,16 +49,17 @@ public class MenuFragment extends BaseFragment {
     // });
     // }
     //
-    // private void setupStoreButton() {
-    // Button button = (Button) getActivity().findViewById(R.id.button_store);
-    // button.setOnClickListener(new View.OnClickListener() {
-    //
-    // @Override
-    // public void onClick(View v) {
-    // switchFragment(new StoreFragment());
-    // }
-    // });
-    // }
+    private void setupStoreButton() {
+        Button button = (Button) getActivity().findViewById(R.id.button_store);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                switchFragment(new StoreFragment());
+            }
+        });
+    }
+
     //
     // private void setupViewButton() {
     // Button button = (Button) getActivity().findViewById(R.id.button_view);
