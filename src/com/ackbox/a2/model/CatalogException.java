@@ -1,5 +1,11 @@
 package com.ackbox.a2.model;
 
+/**
+ * Exception for catalog related operations.
+ * 
+ * @author trein
+ * 
+ */
 public class CatalogException extends Exception {
 
     private static final long serialVersionUID = -6783946716741122352L;

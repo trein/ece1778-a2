@@ -15,6 +15,12 @@ import com.ackbox.a2.model.CatalogService;
 import com.ackbox.a2.model.Person;
 import com.ackbox.a2.model.Utils;
 
+/**
+ * Fragment for adding new persons to catalogs.
+ * 
+ * @author trein
+ * 
+ */
 public class EnterNamesFragment extends BaseFragment {
 
     private static final String TAG = EnterNamesFragment.class.getSimpleName();
@@ -81,7 +87,7 @@ public class EnterNamesFragment extends BaseFragment {
         String food = (String) this.mFoodSpinner.getSelectedItem();
         Integer age = (Utils.isNumeric(ageText)) ? Integer.valueOf(ageText) : 0;
 
-        return Person.withName(name).andAge(age).andFood(food);
+        return Person.newPersonWithName(name).andAge(age).andFood(food);
     }
 
     private void cleanUpFields() {

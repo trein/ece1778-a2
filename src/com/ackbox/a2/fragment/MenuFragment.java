@@ -13,6 +13,12 @@ import android.widget.TextView;
 import com.ackbox.a2.R;
 import com.ackbox.a2.model.CatalogService;
 
+/**
+ * Fragment containing the application menu.
+ * 
+ * @author trein
+ * 
+ */
 public class MenuFragment extends BaseFragment {
 
     private final CatalogService mService = CatalogService.INSTANCE;
@@ -39,8 +45,8 @@ public class MenuFragment extends BaseFragment {
 
     private void setupHeader() {
         TextView header = (TextView) getActivity().findViewById(R.id.welcome);
-        header.setText(String.format(getResources().getString(R.string.welcome_message),
-                this.mService.currentCatalogName()));
+        String pattern = getResources().getString(R.string.welcome_message);
+        header.setText(String.format(pattern, this.mService.currentCatalogName()));
     }
 
     private void setupEnterNamesButton() {
@@ -102,25 +108,25 @@ public class MenuFragment extends BaseFragment {
                 }
             }
 
-            private OnClickListener emptyListener() {
-                return new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                };
-            }
-
-            private OnClickListener exitListener() {
-                return new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        getActivity().finish();
-                    }
-                };
-            }
         });
+    }
 
+    private OnClickListener emptyListener() {
+        return new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        };
+    }
+
+    private OnClickListener exitListener() {
+        return new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                getActivity().finish();
+            }
+        };
     }
 }

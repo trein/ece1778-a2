@@ -15,6 +15,12 @@ import com.ackbox.a2.adapter.TitleDetailAdapter;
 import com.ackbox.a2.model.CatalogService;
 import com.ackbox.a2.model.Displayable;
 
+/**
+ * Fragment displaying all stored catalogs.
+ * 
+ * @author trein
+ * 
+ */
 public class ViewFragment extends BaseFragment {
 
     private static final String TAG = ViewFragment.class.getSimpleName();

@@ -33,32 +33,46 @@ public class Utils {
 
     public static void writeToFile(Context context, String fileName, String data) throws SyncFailedException,
             IOException {
-        File outFile = new File(context.getFilesDir(), fileName);
-        FileOutputStream fos = new FileOutputStream(outFile);
-        OutputStreamWriter out = new OutputStreamWriter(fos);
+        FileOutputStream fos = null;
+        OutputStreamWriter out = null;
 
-        out.write(data);
-        out.flush();
-        fos.getFD().sync();
-        out.close();
-        fos.close();
+        try {
+            File outFile = new File(context.getFilesDir(), fileName);
+
+            fos = new FileOutputStream(outFile);
+            out = new OutputStreamWriter(fos);
+            out.write(data);
+            out.flush();
+            fos.getFD().sync();
+        } finally {
+            out.close();
+            fos.close();
+        }
+
     }
 
     public static String readFromFile(Context context, String fileName) throws IOException {
         String data = null;
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
+        BufferedReader buffreader = null;
 
-        File entriesFile = new File(context.getFilesDir(), fileName);
-        FileInputStream fis = new FileInputStream(entriesFile);
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader buffreader = new BufferedReader(isr);
-        String readString = buffreader.readLine();
+        try {
+            File entriesFile = new File(context.getFilesDir(), fileName);
+            fis = new FileInputStream(entriesFile);
+            isr = new InputStreamReader(fis);
+            buffreader = new BufferedReader(isr);
 
-        if (readString != null) {
-            data = readString;
+            String readString = buffreader.readLine();
+
+            if (readString != null) {
+                data = readString;
+            }
+        } finally {
+            buffreader.close();
+            isr.close();
+            fis.close();
         }
-        buffreader.close();
-        isr.close();
-        fis.close();
 
         return data;
     }

@@ -1,11 +1,17 @@
 package com.ackbox.a2;
 
-import com.ackbox.a2.fragment.MenuFragment;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
+import com.ackbox.a2.fragment.MenuFragment;
+
+/**
+ * Entry point activity. It is the fragment container.
+ * 
+ * @author trein
+ * 
+ */
 public class MainActivity extends FragmentActivity {
 
     @Override
@@ -13,7 +19,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Checking if is the first time the activity is being created.
         if (savedInstanceState == null) {
             addFragment(new MenuFragment());
         }

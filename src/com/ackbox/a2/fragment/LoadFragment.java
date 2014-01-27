@@ -19,6 +19,12 @@ import com.ackbox.a2.model.CatalogService;
 import com.ackbox.a2.model.Displayable;
 import com.ackbox.a2.model.PersonCatalog;
 
+/**
+ * Fragment enabling the user to load previously stored catalogs.
+ * 
+ * @author trein
+ * 
+ */
 public class LoadFragment extends BaseFragment {
 
     private static final String TAG = LoadFragment.class.getSimpleName();
@@ -79,6 +85,7 @@ public class LoadFragment extends BaseFragment {
             this.mService.loadCurrentCatalog(getActivity(), catalog.getFileName());
             String pattern = getResources().getString(R.string.stored_catalogs_loaded_message_pattern);
             showNotification(String.format(pattern, catalog.getFileName()));
+            switchToPreviousFragment();
         } catch (CatalogException e) {
             Log.e(TAG, "Catalog not loaded.", e);
             String pattern = getResources().getString(R.string.stored_catalogs_not_loaded_message_pattern);

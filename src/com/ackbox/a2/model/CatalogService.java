@@ -8,6 +8,7 @@ import android.content.Context;
 
 import com.ackbox.a2.R;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 /**
@@ -26,10 +27,23 @@ public enum CatalogService {
         this.loadedCatalog = new PersonCatalog();
     }
 
+    /**
+     * Retrieve the list of {@link Displayable} persons stored in the loaded
+     * catalog. It is worth to notice that returned list is immutable.
+     * 
+     * @return Immutable list of persons of current catalog.
+     */
     public List<Displayable> getCurrentCatalogPersons() {
         return this.loadedCatalog.getPersons();
     }
 
+    /**
+     * Add a new person to the current loaded catalog.
+     * 
+     * @param context Current application context.
+     * @param person New person instance to be added.
+     * @throws CatalogException In case of invalid person instances.
+     */
     public void addPerson(Context context, Person person) throws CatalogException {
         if (!person.isValid()) {
             throw new CatalogException(context.getString(R.string.invalid_person_message));
@@ -37,6 +51,13 @@ public enum CatalogService {
         this.loadedCatalog.addPerson(person);
     }
 
+    /**
+     * Store current loaded catalog in the File System.
+     * 
+     * @param context Current application context.
+     * @param fileName Name that will be used when persisting the catalog.
+     * @throws CatalogException In case of invalid file name.
+     */
     public void saveCurrentCatalog(Context context, String fileName) throws CatalogException {
         if (Strings.isNullOrEmpty(fileName)) {
             throw new CatalogException(context.getString(R.string.invalid_file_name_message));
@@ -49,6 +70,13 @@ public enum CatalogService {
         }
     }
 
+    /**
+     * Load catalog from File System to the memory.
+     * 
+     * @param context Current application context.
+     * @param fileName File name that will be loaded.
+     * @throws CatalogException In case of invalid file name.
+     */
     public void loadCurrentCatalog(Context context, String fileName) throws CatalogException {
         if (Strings.isNullOrEmpty(fileName)) {
             throw new CatalogException(context.getString(R.string.invalid_file_name_message));
@@ -61,6 +89,14 @@ public enum CatalogService {
         }
     }
 
+    /**
+     * Retrieve the list of {@link Displayable} catalogs stored in the File
+     * System.
+     * 
+     * @param context Current application context.
+     * @return Immutable list containing all catalogs stored in the File System.
+     * @throws CatalogException In case of errors during catalog loading.
+     */
     public List<Displayable> getStoredCatalogFiles(Context context) throws CatalogException {
         File filesDir = context.getFilesDir();
         List<Displayable> containers = Lists.newArrayList();
@@ -72,13 +108,24 @@ public enum CatalogService {
                 new CatalogException(context.getResources().getString(R.string.error_reading_file_message), e);
             }
         }
-        return containers;
+        return ImmutableList.copyOf(containers);
     }
 
+    /**
+     * Current catalog's name.
+     * 
+     * @return String representing current loaded catalog's name.
+     */
     public String currentCatalogName() {
         return this.loadedCatalog.getFileName();
     }
 
+    /**
+     * Check is there is any unsaved changes in current loaded catalog.
+     * 
+     * @return {@code true} if current loaded catalog was modified and not
+     *         saved, {@code false} otherwise.
+     */
     public boolean hasUnsavedChanges() {
         // TODO Auto-generated method stub
         return true;

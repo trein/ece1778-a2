@@ -12,11 +12,17 @@ import com.ackbox.a2.R;
 import com.ackbox.a2.model.CatalogException;
 import com.ackbox.a2.model.CatalogService;
 
+/**
+ * Fragment enabling catalog storage.
+ * 
+ * @author trein
+ * 
+ */
 public class StoreFragment extends BaseFragment {
 
     private static final String TAG = StoreFragment.class.getSimpleName();
 
-    private EditText mNameEditText;
+    private EditText mFileNameEditText;
     private final CatalogService mService = CatalogService.INSTANCE;
 
     @Override
@@ -31,7 +37,7 @@ public class StoreFragment extends BaseFragment {
     }
 
     private void setupViews() {
-        this.mNameEditText = (EditText) getActivity().findViewById(R.id.text_file_name);
+        this.mFileNameEditText = (EditText) getActivity().findViewById(R.id.text_file_name);
 
         Button storeButton = (Button) getActivity().findViewById(R.id.button_store);
         storeButton.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +59,7 @@ public class StoreFragment extends BaseFragment {
     }
 
     private void storeEntryList() {
-        String filename = this.mNameEditText.getText().toString();
+        String filename = this.mFileNameEditText.getText().toString();
 
         try {
             Log.d(TAG, String.format("Preparing to save entry list into [{0}].", filename));

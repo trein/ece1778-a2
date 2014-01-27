@@ -7,7 +7,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
 /**
- * Model class representing a Person in the app.
+ * POJO model class representing a Person in the app.
  * 
  * @author trein
  * 
@@ -22,7 +22,7 @@ public class Person implements Displayable {
         this.name = name;
     }
 
-    public static Person withName(String name) {
+    public static Person newPersonWithName(String name) {
         return new Person(name);
     }
 
