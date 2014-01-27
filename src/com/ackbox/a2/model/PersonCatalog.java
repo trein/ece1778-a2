@@ -28,17 +28,6 @@ public class PersonCatalog implements Displayable {
     private String fileName = DEFAULT_FILE_NAME;
 
     public PersonCatalog() {
-        addPerson(Person.newPersonWithName("John Doe").andAge(36).andFood("Chinese Food"));
-        addPerson(Person.newPersonWithName("John Doe").andAge(36).andFood("Chinese Food"));
-        addPerson(Person.newPersonWithName("John Doe").andAge(36).andFood("Chinese Food"));
-        addPerson(Person.newPersonWithName("John Doe").andAge(36).andFood("Chinese Food"));
-        addPerson(Person.newPersonWithName("John Doe").andAge(36).andFood("Chinese Food"));
-        addPerson(Person.newPersonWithName("John Doe").andAge(36).andFood("Chinese Food"));
-        addPerson(Person.newPersonWithName("John Doe").andAge(36).andFood("Chinese Food"));
-        addPerson(Person.newPersonWithName("John Doe").andAge(36).andFood("Chinese Food"));
-        addPerson(Person.newPersonWithName("Karen Smith").andAge(26).andFood("Tai Food"));
-        addPerson(Person.newPersonWithName("Peeta Preat").andAge(31).andFood("Veggie"));
-        addPerson(Person.newPersonWithName("Carmen Thied").andAge(16).andFood("Chinese Food"));
     }
 
     @Override
