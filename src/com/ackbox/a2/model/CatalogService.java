@@ -63,7 +63,7 @@ public enum CatalogService {
             throw new CatalogException(context.getString(R.string.invalid_file_name_message));
         }
         try {
-            this.loadedCatalog.setFileName(fileName);
+            this.loadedCatalog.setCatalogAsStored(fileName);
             Utils.writeToFile(context, fileName, this.loadedCatalog.toJSON());
         } catch (IOException e) {
             new CatalogException(context.getResources().getString(R.string.error_writing_file), e);
@@ -127,7 +127,6 @@ public enum CatalogService {
      *         saved, {@code false} otherwise.
      */
     public boolean hasUnsavedChanges() {
-        // TODO Auto-generated method stub
-        return true;
+        return this.loadedCatalog.hasChanges();
     }
 }

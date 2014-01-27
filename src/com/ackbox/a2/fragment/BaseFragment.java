@@ -1,5 +1,8 @@
 package com.ackbox.a2.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
@@ -22,5 +25,20 @@ public class BaseFragment extends Fragment {
 
     protected void showNotification(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showDecisionAlertMessage(OnClickListener okAction) {
+        new AlertDialog.Builder(getActivity()).setMessage(R.string.unsaved_changes_message).setCancelable(false)
+                .setPositiveButton(R.string.ok_label, okAction)
+                .setNegativeButton(R.string.cancel_label, emptyListener()).create().show();
+    }
+
+    protected OnClickListener emptyListener() {
+        return new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        };
     }
 }

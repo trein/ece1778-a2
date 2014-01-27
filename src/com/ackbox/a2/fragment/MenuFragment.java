@@ -1,6 +1,5 @@
 package com.ackbox.a2.fragment;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -102,22 +101,11 @@ public class MenuFragment extends BaseFragment {
                 if (!MenuFragment.this.mService.hasUnsavedChanges()) {
                     getActivity().finish();
                 } else {
-                    new AlertDialog.Builder(getActivity()).setMessage(R.string.unsaved_changes_message)
-                            .setCancelable(false).setPositiveButton(R.string.ok_label, exitListener())
-                            .setNegativeButton(R.string.cancel_label, emptyListener()).create().show();
+                    showDecisionAlertMessage(exitListener());
                 }
             }
 
         });
-    }
-
-    private OnClickListener emptyListener() {
-        return new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-            }
-        };
     }
 
     private OnClickListener exitListener() {

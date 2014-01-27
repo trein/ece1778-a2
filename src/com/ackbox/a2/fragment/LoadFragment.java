@@ -2,6 +2,8 @@ package com.ackbox.a2.fragment;
 
 import java.util.List;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,7 +69,11 @@ public class LoadFragment extends BaseFragment {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    loadSelectedCatalog(listView, position);
+                    if (!LoadFragment.this.mService.hasUnsavedChanges()) {
+                        loadSelectedCatalog(listView, position);
+                    } else {
+                        showDecisionAlertMessage(loadListener(listView, position));
+                    }
                 }
             });
         } catch (CatalogException e) {
@@ -77,7 +83,17 @@ public class LoadFragment extends BaseFragment {
         }
     }
 
-    private void loadSelectedCatalog(final ListView listView, int position) {
+    private OnClickListener loadListener(final ListView listView, final int position) {
+        return new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                loadSelectedCatalog(listView, position);
+            }
+        };
+    }
+
+    private void loadSelectedCatalog(ListView listView, int position) {
         PersonCatalog catalog = (PersonCatalog) listView.getItemAtPosition(position);
         Log.d(TAG, String.format("Selected catalog {0}.", catalog));
 

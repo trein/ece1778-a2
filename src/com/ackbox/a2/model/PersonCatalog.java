@@ -26,6 +26,7 @@ public class PersonCatalog implements Displayable {
     private final List<Person> persons = Lists.newArrayList();
     private String date = DATE_FORMATTER.format(new Date());
     private String fileName = DEFAULT_FILE_NAME;
+    private boolean hasChanged = false;
 
     public PersonCatalog() {
     }
@@ -42,6 +43,7 @@ public class PersonCatalog implements Displayable {
     }
 
     public void addPerson(Person person) {
+        this.hasChanged = true;
         this.persons.add(person);
     }
 
@@ -53,13 +55,18 @@ public class PersonCatalog implements Displayable {
         return this.fileName;
     }
 
-    public void setFileName(String filename) {
+    public void setCatalogAsStored(String filename) {
+        this.hasChanged = false;
         this.fileName = filename;
         this.date = DATE_FORMATTER.format(new Date());
     }
 
     public boolean hasChanges() {
-        return !this.fileName.equals(DEFAULT_FILE_NAME) || !this.persons.isEmpty();
+        return this.hasChanged;
+    }
+
+    public boolean isStored() {
+        return !this.fileName.equals(DEFAULT_FILE_NAME);
     }
 
     public String toJSON() {
