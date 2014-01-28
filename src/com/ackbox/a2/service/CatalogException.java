@@ -1,4 +1,4 @@
-package com.ackbox.a2.model;
+package com.ackbox.a2.service;
 
 /**
  * Exception for catalog related operations.

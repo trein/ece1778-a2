@@ -3,6 +3,7 @@ package com.ackbox.a2.model;
 import android.content.Context;
 
 import com.ackbox.a2.R;
+import com.ackbox.a2.common.Utils;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 

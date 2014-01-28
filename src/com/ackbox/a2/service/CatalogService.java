@@ -1,4 +1,4 @@
-package com.ackbox.a2.model;
+package com.ackbox.a2.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,10 @@ import java.util.List;
 import android.content.Context;
 
 import com.ackbox.a2.R;
+import com.ackbox.a2.common.Utils;
+import com.ackbox.a2.model.Displayable;
+import com.ackbox.a2.model.Person;
+import com.ackbox.a2.model.PersonCatalog;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -21,20 +25,29 @@ import com.google.common.collect.Lists;
 public enum CatalogService {
     INSTANCE;
 
-    private PersonCatalog loadedCatalog;
+    private PersonCatalog sessionCatalog;
 
     private CatalogService() {
-        this.loadedCatalog = new PersonCatalog();
+        this.sessionCatalog = PersonCatalog.emptyCatalog();
     }
 
     /**
-     * Retrieve the list of {@link Displayable} persons stored in the loaded
-     * catalog. It is worth to notice that returned list is immutable.
+     * Return current session catalog.
      * 
-     * @return Immutable list of persons of current catalog.
+     * @return Current session catalog.
      */
-    public List<Displayable> getCurrentCatalogPersons() {
-        return this.loadedCatalog.getPersons();
+    public PersonCatalog getCurrentCatalog() {
+        return this.sessionCatalog;
+    }
+
+    /**
+     * Check is there is any unsaved changes in current loaded catalog.
+     * 
+     * @return {@code true} if current loaded catalog was modified and not
+     *         saved, {@code false} otherwise.
+     */
+    public boolean hasUnsavedChanges() {
+        return this.sessionCatalog.hasChanges();
     }
 
     /**
@@ -48,25 +61,39 @@ public enum CatalogService {
         if (!person.isValid()) {
             throw new CatalogException(context.getString(R.string.invalid_person_message));
         }
-        this.loadedCatalog.addPerson(person);
+        this.sessionCatalog.addPerson(person);
     }
 
     /**
-     * Store current loaded catalog in the File System.
+     * Store current loaded catalog in the File System and reset it so that new
+     * catalogs can be created.
      * 
      * @param context Current application context.
      * @param fileName Name that will be used when persisting the catalog.
      * @throws CatalogException In case of invalid file name.
      */
-    public void saveCurrentCatalog(Context context, String fileName) throws CatalogException {
+    public void saveCurrentAndCreateNewCatalog(Context context, String fileName) throws CatalogException {
+        saveCatalog(context, fileName, this.sessionCatalog);
+        this.sessionCatalog = PersonCatalog.emptyCatalog();
+    }
+
+    /**
+     * Store a catalog in the File System.
+     * 
+     * @param context Current application context.
+     * @param fileName Name that will be used when persisting the catalog.
+     * @param catalog {@link PersonCatalog} to be saved.
+     * @throws CatalogException In case of invalid file name.
+     */
+    public void saveCatalog(Context context, String fileName, PersonCatalog catalog) throws CatalogException {
         if (Strings.isNullOrEmpty(fileName)) {
             throw new CatalogException(context.getString(R.string.invalid_file_name_message));
         }
         try {
-            this.loadedCatalog.setCatalogAsStored(fileName);
-            Utils.writeToFile(context, fileName, this.loadedCatalog.toJSON());
+            catalog.setCatalogAsStored(fileName);
+            Utils.writeToFile(context, fileName, catalog.toJSON());
         } catch (IOException e) {
-            new CatalogException(context.getResources().getString(R.string.error_writing_file), e);
+            throw new CatalogException(context.getResources().getString(R.string.error_writing_file), e);
         }
     }
 
@@ -75,18 +102,22 @@ public enum CatalogService {
      * 
      * @param context Current application context.
      * @param fileName File name that will be loaded.
+     * @return loaded {@link PersonCatalog} from File System.
      * @throws CatalogException In case of invalid file name.
      */
-    public void loadCurrentCatalog(Context context, String fileName) throws CatalogException {
+    public PersonCatalog loadCatalog(Context context, String fileName) throws CatalogException {
+        PersonCatalog catalog = null;
+
         if (Strings.isNullOrEmpty(fileName)) {
             throw new CatalogException(context.getString(R.string.invalid_file_name_message));
         }
 
         try {
-            this.loadedCatalog = PersonCatalog.fromJSON(Utils.readFromFile(context, fileName));
+            catalog = PersonCatalog.fromJSON(Utils.readFromFile(context, fileName));
         } catch (IOException e) {
-            new CatalogException(context.getResources().getString(R.string.error_reading_file_message), e);
+            throw new CatalogException(context.getResources().getString(R.string.error_reading_file_message), e);
         }
+        return catalog;
     }
 
     /**
@@ -105,28 +136,10 @@ public enum CatalogService {
             try {
                 containers.add(PersonCatalog.fromJSON(Utils.readFromFile(context, fileName)));
             } catch (IOException e) {
-                new CatalogException(context.getResources().getString(R.string.error_reading_file_message), e);
+                throw new CatalogException(context.getResources().getString(R.string.error_reading_file_message), e);
             }
         }
         return ImmutableList.copyOf(containers);
     }
 
-    /**
-     * Current catalog's name.
-     * 
-     * @return String representing current loaded catalog's name.
-     */
-    public String currentCatalogName() {
-        return this.loadedCatalog.getFileName();
-    }
-
-    /**
-     * Check is there is any unsaved changes in current loaded catalog.
-     * 
-     * @return {@code true} if current loaded catalog was modified and not
-     *         saved, {@code false} otherwise.
-     */
-    public boolean hasUnsavedChanges() {
-        return this.loadedCatalog.hasChanges();
-    }
 }

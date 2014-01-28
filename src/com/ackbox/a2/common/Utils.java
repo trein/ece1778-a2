@@ -1,4 +1,4 @@
-package com.ackbox.a2.model;
+package com.ackbox.a2.common;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -72,7 +72,6 @@ public class Utils {
             out.close();
             fos.close();
         }
-
     }
 
     /**
@@ -105,7 +104,6 @@ public class Utils {
             isr.close();
             fis.close();
         }
-
         return data;
     }
 }

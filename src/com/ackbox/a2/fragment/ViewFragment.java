@@ -12,11 +12,12 @@ import android.widget.ListView;
 
 import com.ackbox.a2.R;
 import com.ackbox.a2.adapter.TitleDetailAdapter;
-import com.ackbox.a2.model.CatalogService;
+import com.ackbox.a2.common.Constants;
 import com.ackbox.a2.model.Displayable;
+import com.ackbox.a2.model.PersonCatalog;
 
 /**
- * Fragment displaying all stored catalogs.
+ * Fragment displaying catalogs entries.
  * 
  * @author trein
  * 
@@ -24,8 +25,6 @@ import com.ackbox.a2.model.Displayable;
 public class ViewFragment extends BaseFragment {
 
     private static final String TAG = ViewFragment.class.getSimpleName();
-
-    private final CatalogService mService = CatalogService.INSTANCE;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,8 +51,9 @@ public class ViewFragment extends BaseFragment {
     }
 
     private void loadCurrentEntryList() {
-        Log.d(TAG, "Preparing to load current entry list.");
-        List<Displayable> list = this.mService.getCurrentCatalogPersons();
+        Log.d(TAG, "Preparing to load entry list.");
+        PersonCatalog catalog = PersonCatalog.fromJSON((String) getArguments().get(Constants.BUNDLE_ID));
+        List<Displayable> list = catalog.getPersons();
 
         ListView listView = (ListView) getActivity().findViewById(R.id.list);
         TitleDetailAdapter adapter = new TitleDetailAdapter(getActivity(), list);

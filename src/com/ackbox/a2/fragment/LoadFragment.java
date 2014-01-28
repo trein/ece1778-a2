@@ -2,8 +2,6 @@ package com.ackbox.a2.fragment;
 
 import java.util.List;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +14,11 @@ import android.widget.ListView;
 
 import com.ackbox.a2.R;
 import com.ackbox.a2.adapter.TitleDetailAdapter;
-import com.ackbox.a2.model.CatalogException;
-import com.ackbox.a2.model.CatalogService;
+import com.ackbox.a2.common.Constants;
 import com.ackbox.a2.model.Displayable;
 import com.ackbox.a2.model.PersonCatalog;
+import com.ackbox.a2.service.CatalogException;
+import com.ackbox.a2.service.CatalogService;
 
 /**
  * Fragment enabling the user to load previously stored catalogs.
@@ -69,11 +68,7 @@ public class LoadFragment extends BaseFragment {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (!LoadFragment.this.mService.hasUnsavedChanges()) {
-                        loadSelectedCatalog(listView, position);
-                    } else {
-                        showDecisionAlertMessage(loadListener(listView, position));
-                    }
+                    loadSelectedCatalog(listView, position);
                 }
             });
         } catch (CatalogException e) {
@@ -83,25 +78,22 @@ public class LoadFragment extends BaseFragment {
         }
     }
 
-    private OnClickListener loadListener(final ListView listView, final int position) {
-        return new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                loadSelectedCatalog(listView, position);
-            }
-        };
-    }
-
     private void loadSelectedCatalog(ListView listView, int position) {
         PersonCatalog catalog = (PersonCatalog) listView.getItemAtPosition(position);
         Log.d(TAG, String.format("Selected catalog {0}.", catalog));
 
         try {
-            this.mService.loadCurrentCatalog(getActivity(), catalog.getFileName());
+            PersonCatalog loadedCatalog = this.mService.loadCatalog(getActivity(), catalog.getFileName());
             String pattern = getResources().getString(R.string.stored_catalogs_loaded_message_pattern);
+
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.BUNDLE_ID, loadedCatalog.toJSON());
+
+            ViewFragment fragment = new ViewFragment();
+            fragment.setArguments(bundle);
+
             showNotification(String.format(pattern, catalog.getFileName()));
-            switchToPreviousFragment();
+            switchFragment(fragment);
         } catch (CatalogException e) {
             Log.e(TAG, "Catalog not loaded.", e);
             String pattern = getResources().getString(R.string.stored_catalogs_not_loaded_message_pattern);

@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.ackbox.a2.R;
-import com.ackbox.a2.model.CatalogException;
-import com.ackbox.a2.model.CatalogService;
+import com.ackbox.a2.service.CatalogException;
+import com.ackbox.a2.service.CatalogService;
 
 /**
  * Fragment enabling catalog storage.
@@ -63,7 +63,7 @@ public class StoreFragment extends BaseFragment {
 
         try {
             Log.d(TAG, String.format("Preparing to save entry list into [{0}].", filename));
-            this.mService.saveCurrentCatalog(getActivity(), filename);
+            this.mService.saveCurrentAndCreateNewCatalog(getActivity(), filename);
             switchToPreviousFragment();
             showNotification(R.string.catalog_stored_message);
         } catch (CatalogException e) {

@@ -31,6 +31,7 @@
     <string name="invalid_file_name_message">Invalid file name.</string>
     <string name="error_writing_file">Some errors were found while writing file.</string>
     
+    
     <string name="view_label">View</string>
     <string name="view_entry_list_label">View Entries List</string>
     <string name="person_detail_pattern">Age: %1$s Favorite Food: %2$s</string>
@@ -48,7 +49,7 @@
     
     <string name="exit_label">Exit</string>
     <string name="unsaved_changes_message">There are unsaved changes. Are you sure you want to exit?</string>
-    <string name="welcome_message">File Name Loaded: %1$s</string>
+    <string name="welcome_message">Welcome! Current unsaved entries: %1$s</string>
 
     
     <string-array name="array_food_types">

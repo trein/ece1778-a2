@@ -1,5 +1,6 @@
 package com.ackbox.a2.fragment;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -10,7 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ackbox.a2.R;
-import com.ackbox.a2.model.CatalogService;
+import com.ackbox.a2.common.Constants;
+import com.ackbox.a2.service.CatalogService;
 
 /**
  * Fragment containing the application menu.
@@ -45,7 +47,7 @@ public class MenuFragment extends BaseFragment {
     private void setupHeader() {
         TextView header = (TextView) getActivity().findViewById(R.id.welcome);
         String pattern = getResources().getString(R.string.welcome_message);
-        header.setText(String.format(pattern, this.mService.currentCatalogName()));
+        header.setText(String.format(pattern, this.mService.getCurrentCatalog().size()));
     }
 
     private void setupEnterNamesButton() {
@@ -76,7 +78,13 @@ public class MenuFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                switchFragment(new ViewFragment());
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.BUNDLE_ID, MenuFragment.this.mService.getCurrentCatalog().toJSON());
+
+                ViewFragment fragment = new ViewFragment();
+                fragment.setArguments(bundle);
+
+                switchFragment(fragment);
             }
         });
     }
@@ -106,6 +114,21 @@ public class MenuFragment extends BaseFragment {
             }
 
         });
+    }
+
+    private void showDecisionAlertMessage(OnClickListener okAction) {
+        new AlertDialog.Builder(getActivity()).setMessage(R.string.unsaved_changes_message).setCancelable(false)
+                .setPositiveButton(R.string.ok_label, okAction)
+                .setNegativeButton(R.string.cancel_label, emptyListener()).create().show();
+    }
+
+    private OnClickListener emptyListener() {
+        return new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        };
     }
 
     private OnClickListener exitListener() {

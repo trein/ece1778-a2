@@ -10,10 +10,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.ackbox.a2.R;
-import com.ackbox.a2.model.CatalogException;
-import com.ackbox.a2.model.CatalogService;
+import com.ackbox.a2.common.Utils;
 import com.ackbox.a2.model.Person;
-import com.ackbox.a2.model.Utils;
+import com.ackbox.a2.service.CatalogException;
+import com.ackbox.a2.service.CatalogService;
 
 /**
  * Fragment for adding new persons to catalogs.
